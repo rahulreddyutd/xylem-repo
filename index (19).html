@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<base target="_self" />
+<title>PM Portfolio — Water Technology</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a08;
+    --surface: #111110;
+    --surface2: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #f0ede6;
+    --muted: #888880;
+    --accent1: #c8f55a;
+    --accent2: #5af5c8;
+    --accent3: #f5c85a;
+    --accent1-dim: rgba(200,245,90,0.12);
+    --accent2-dim: rgba(90,245,200,0.12);
+    --accent3-dim: rgba(245,200,90,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+  }
+
+  nav ul li a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(200,245,90,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent1);
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent1);
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent1);
+    color: #0a0a08;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+  .hero-cta:hover { opacity: 0.88; }
+  .hero-cta svg { width: 14px; height: 14px; }
+
+  /* ── INDEX / TOC ── */
+  .index-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 40px;
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--muted);
+  }
+
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .index-card {
+    background: var(--bg);
+    padding: 40px 36px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .index-card:nth-child(1) { --card-accent: var(--accent1); --card-dim: var(--accent1-dim); }
+  .index-card:nth-child(2) { --card-accent: var(--accent2); --card-dim: var(--accent2-dim); }
+  .index-card:nth-child(3) { --card-accent: var(--accent3); --card-dim: var(--accent3-dim); }
+
+  .index-card:hover { background: var(--card-dim); }
+
+  .index-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .index-card:hover::after { transform: scaleX(1); }
+
+  .index-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--card-accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .index-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .index-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .index-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .itag {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 8px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    color: var(--muted);
+  }
+
+  .index-arrow {
+    position: absolute;
+    top: 36px; right: 36px;
+    width: 32px; height: 32px;
+    border: 1px solid var(--border2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--card-accent);
+    font-size: 16px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .index-card:hover .index-arrow { transform: translate(3px, -3px); border-color: var(--card-accent); }
+
+  /* ── PROJECT SECTIONS ── */
+  .project-section {
+    padding: 120px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .project-section::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 60px; right: 40px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 180px;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .project-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .project-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  .p1 .project-eyebrow { color: var(--accent1); background: var(--accent1-dim); }
+  .p2 .project-eyebrow { color: var(--accent2); background: var(--accent2-dim); }
+  .p3 .project-eyebrow { color: var(--accent3); background: var(--accent3-dim); }
+
+  .project-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 5vw, 58px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+
+  .project-section .problem {
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+    padding-left: 20px;
+    border-left: 2px solid var(--border2);
+  }
+
+  /* deliverables grid */
+  .deliverables {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
+
+  .del {
+    background: var(--surface);
+    padding: 32px;
+    transition: background 0.2s;
+  }
+  .del:hover { background: var(--surface2); }
+
+  .del-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .del h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .del p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* metrics */
+  .metrics {
+    display: flex;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .met {
+    flex: 1;
+    background: var(--bg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .met-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .p1 .met-val { color: var(--accent1); }
+  .p2 .met-val { color: var(--accent2); }
+  .p3 .met-val { color: var(--accent3); }
+
+  .met-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* skills */
+  .skills-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .skill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+  }
+
+  .p1 .project-link { background: var(--accent1); color: #0a0a08; }
+  .p2 .project-link { background: var(--accent2); color: #0a0a08; }
+  .p3 .project-link { background: var(--accent3); color: #0a0a08; }
+  .project-link:hover { opacity: 0.85; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  footer .foot-left {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+  }
+
+  footer .foot-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  footer .foot-links a {
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  footer .foot-links a:hover { color: var(--text); }
+
+  footer .foot-copy {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    nav ul { gap: 16px; }
+    .hero { padding: 120px 20px 60px; }
+    .index-grid { grid-template-columns: 1fr; }
+    .index-section { padding: 60px 20px; }
+    .project-section { padding: 80px 20px; }
+    .deliverables { grid-template-columns: 1fr; }
+    .metrics { flex-direction: column; }
+    footer { padding: 40px 20px; }
+    .hero-meta { flex-direction: column; gap: 24px; }
+  }
+
+  /* scroll animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#top" class="logo" style="text-decoration:none; color:var(--text);">PM Portfolio</a>
+  <ul>
+    <li><a href="#projects" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase; transition:color 0.2s;">Projects</a></li>
+    <li><a href="#project-1" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase; transition:color 0.2s;">01</a></li>
+    <li><a href="#project-2" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase; transition:color 0.2s;">02</a></li>
+    <li><a href="#project-3" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase; transition:color 0.2s;">03</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="top">
+  <div class="hero-label">Product Management Portfolio · Water Technology</div>
+  <h1>Building products that <em>matter</em> for water.</h1>
+  <div class="hero-meta">
+    <p class="hero-desc">Three end-to-end PM projects showcasing VOC research, 80/20 portfolio strategy, and data-driven product decisions — tailored for Xylem and the water technology sector.</p>
+    <a href="#projects" class="hero-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent1); color:#0a0a08; font-family:'Syne',sans-serif; font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; padding:14px 28px; border-radius:2px; transition:opacity 0.2s;">
+      View Projects
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ── INDEX / TOC ── -->
+<section class="index-section" id="projects">
+  <div class="section-tag">Project Index</div>
+  <div class="index-grid">
+
+    <a href="#project-1" class="index-card" style="background:var(--bg); padding:40px 36px; text-decoration:none; display:block; transition:background 0.2s; position:relative; overflow:hidden;">
+      <div class="index-num" style="font-family:'DM Mono',monospace; font-size:11px; color:var(--accent1); letter-spacing:0.1em; margin-bottom:20px;">01 / NPD</div>
+      <span class="index-arrow" style="position:absolute; top:36px; right:36px; width:32px; height:32px; border:1px solid var(--border2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent1); font-size:16px; transition:transform 0.2s, border-color 0.2s;">↗</span>
+      <h3 style="font-family:'DM Serif Display',serif; font-size:22px; color:var(--text); line-height:1.2; margin-bottom:12px;">Smart Leak Detection Sensor</h3>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:24px;">Full Stage Gate NPD — from VOC research through product launch and commercialization.</p>
+      <div class="index-tags" style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">VOC</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Stage Gate</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">NPD</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Pricing</span>
+      </div>
+    </a>
+
+    <a href="#project-2" class="index-card" style="background:var(--bg); padding:40px 36px; text-decoration:none; display:block; transition:background 0.2s; position:relative; overflow:hidden;">
+      <div class="index-num" style="font-family:'DM Mono',monospace; font-size:11px; color:var(--accent2); letter-spacing:0.1em; margin-bottom:20px;">02 / PORTFOLIO</div>
+      <span class="index-arrow" style="position:absolute; top:36px; right:36px; width:32px; height:32px; border:1px solid var(--border2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent2); font-size:16px; transition:transform 0.2s, border-color 0.2s;">↗</span>
+      <h3 style="font-family:'DM Serif Display',serif; font-size:22px; color:var(--text); line-height:1.2; margin-bottom:12px;">80/20 SKU Rationalization</h3>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:24px;">Data-driven portfolio optimization using Pareto analysis, competitive mapping, and financial modeling.</p>
+      <div class="index-tags" style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">80/20</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">SIOP</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Financial Analysis</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Competitive Intel</span>
+      </div>
+    </a>
+
+    <a href="#project-3" class="index-card" style="background:var(--bg); padding:40px 36px; text-decoration:none; display:block; transition:background 0.2s; position:relative; overflow:hidden;">
+      <div class="index-num" style="font-family:'DM Mono',monospace; font-size:11px; color:var(--accent3); letter-spacing:0.1em; margin-bottom:20px;">03 / ANALYTICS</div>
+      <span class="index-arrow" style="position:absolute; top:36px; right:36px; width:32px; height:32px; border:1px solid var(--border2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent3); font-size:16px; transition:transform 0.2s, border-color 0.2s;">↗</span>
+      <h3 style="font-family:'DM Serif Display',serif; font-size:22px; color:var(--text); line-height:1.2; margin-bottom:12px;">Product Performance Dashboard</h3>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:24px;">KPI framework, market trend analysis, and pricing strategy for data-driven product decisions.</p>
+      <div class="index-tags" style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">KPI Tracking</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Market Research</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Pricing</span>
+        <span class="itag" style="font-size:11px; font-family:'DM Mono',monospace; padding:3px 8px; border:1px solid var(--border2); border-radius:2px; color:var(--muted);">Dashboard</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── PROJECT 1 ── -->
+<section class="project-section p1 fade-in" id="project-1" data-num="01">
+  <div class="project-inner">
+    <span class="project-eyebrow" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; display:inline-block; padding:5px 12px; border-radius:2px; margin-bottom:20px; color:var(--accent1); background:var(--accent1-dim);">Project 01 — New Product Development</span>
+    <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(32px,5vw,58px); line-height:1.05; letter-spacing:-0.02em; margin-bottom:20px; max-width:700px;">Smart Leak Detection Sensor Launch</h2>
+    <p class="problem" style="color:var(--muted); max-width:560px; font-size:15px; line-height:1.7; margin-bottom:60px; padding-left:20px; border-left:2px solid var(--border2);">Municipal water utilities lose 20–30% of treated water to undetected pipe leaks. Existing detection is slow and labor-intensive. The opportunity: a low-cost IoT sensor with real-time alerts and a SaaS analytics layer.</p>
+
+    <div class="deliverables" style="display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:60px;">
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable A</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">VOC Research Report</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Interviews with 10 utility managers. Top 5 unmet needs mapped in a severity × frequency matrix. Direct input into requirements management tool.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable B</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">3-Phase Product Roadmap</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">MVP → Analytics Dashboard → API Integrations. Milestones, dependencies, and release criteria for each Stage Gate review.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable C</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Business Case & P&L</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">3-year revenue and margin model. Hardware + SaaS pricing strategy. Break-even analysis and cost targets aligned with operations and finance.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable D</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">GTM Launch Plan</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Target segments, channel partner strategy, beta program design, and sales enablement kit for regional teams.</p>
+      </div>
+    </div>
+
+    <div class="metrics" style="display:flex; gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:48px;">
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent1);">$2.4M</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Projected Year 1 Revenue</div>
+      </div>
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent1);">38%</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Target Gross Margin</div>
+      </div>
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent1);">14mo</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Time to Market</div>
+      </div>
+    </div>
+
+    <div class="skills-row" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px;">
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Stage Gate Process</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">VOC → Requirements</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Revenue Forecasting</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">NPD Vitality Index</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Sales Enablement</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Cross-Functional Collaboration</span>
+    </div>
+
+    <a href="#project-2" class="project-link" style="display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; text-decoration:none; padding:12px 24px; border-radius:2px; transition:opacity 0.2s; background:var(--accent1); color:#0a0a08;">Next Project →</a>
+  </div>
+</section>
+
+<!-- ── PROJECT 2 ── -->
+<section class="project-section p2 fade-in" id="project-2" data-num="02">
+  <div class="project-inner">
+    <span class="project-eyebrow" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; display:inline-block; padding:5px 12px; border-radius:2px; margin-bottom:20px; color:var(--accent2); background:var(--accent2-dim);">Project 02 — Portfolio Strategy</span>
+    <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(32px,5vw,58px); line-height:1.05; letter-spacing:-0.02em; margin-bottom:20px; max-width:700px;">80/20 SKU Rationalization</h2>
+    <p class="problem" style="color:var(--muted); max-width:560px; font-size:15px; line-height:1.7; margin-bottom:60px; padding-left:20px; border-left:2px solid var(--border2);">A pump product line grew to 140 SKUs but 80% of revenue comes from just 28 of them. Excess complexity drives up inventory carrying costs, production inefficiency, and sales confusion across regions.</p>
+
+    <div class="deliverables" style="display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:60px;">
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable A</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Pareto Analysis</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Revenue + margin by SKU. Vital few vs trivial many. Waterfall chart visualization with clear decision tiers for each SKU group.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable B</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Competitor Matrix</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">3-competitor map across price, feature coverage, and channel. Whitespace and threat analysis to inform retention decisions.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable C</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Rationalization Plan</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">40 SKUs to sunset, 12 to bundle, 8 platform SKUs to invest in. Customer migration path and sales team transition playbook.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable D</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Executive Presentation</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">10-slide deck with data story, risk/benefit analysis, implementation roadmap, and 3-year forecast impact for leadership review.</p>
+      </div>
+    </div>
+
+    <div class="metrics" style="display:flex; gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:48px;">
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent2);">$800K</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Estimated Cost Savings</div>
+      </div>
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent2);">−71%</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">SKU Complexity Reduction</div>
+      </div>
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent2);">+4.2pt</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Margin Improvement</div>
+      </div>
+    </div>
+
+    <div class="skills-row" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px;">
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">80/20 Framework</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Margin Analysis</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Competitive Intelligence</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Executive Storytelling</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">SIOP Forecasting</span>
+    </div>
+
+    <a href="#project-3" class="project-link" style="display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; text-decoration:none; padding:12px 24px; border-radius:2px; transition:opacity 0.2s; background:var(--accent2); color:#0a0a08;">Next Project →</a>
+  </div>
+</section>
+
+<!-- ── PROJECT 3 ── -->
+<section class="project-section p3 fade-in" id="project-3" data-num="03">
+  <div class="project-inner">
+    <span class="project-eyebrow" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; display:inline-block; padding:5px 12px; border-radius:2px; margin-bottom:20px; color:var(--accent3); background:var(--accent3-dim);">Project 03 — Data & Analytics</span>
+    <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(32px,5vw,58px); line-height:1.05; letter-spacing:-0.02em; margin-bottom:20px; max-width:700px;">Product Performance Dashboard</h2>
+    <p class="problem" style="color:var(--muted); max-width:560px; font-size:15px; line-height:1.7; margin-bottom:60px; padding-left:20px; border-left:2px solid var(--border2);">Regional sales teams lack visibility into which products are gaining or losing market share. Pricing decisions are made on gut feel. A structured tracker is needed to enable data-driven product and pricing decisions.</p>
+
+    <div class="deliverables" style="display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:60px;">
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable A</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">KPI Framework</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">12 core metrics across revenue, margin, win rate, NPS, and market share. Owners, cadence, and RAG status definitions per metric.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable B</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Market Trend Report</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Water scarcity trends, regulatory shifts, and smart infrastructure spending analysis. Each trend linked to a specific product opportunity.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable C</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Pricing Analysis</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Price-to-value map vs 3 competitors. Recommended price corridor adjustments by region and channel with risk assessment.</p>
+      </div>
+      <div class="del" style="background:var(--surface); padding:32px; transition:background 0.2s;">
+        <div class="del-num" style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); margin-bottom:16px; text-transform:uppercase;">Deliverable D</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px;">Interactive Dashboard Mockup</h4>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">Product scorecard with real vs target KPIs, trend sparklines, and early warning flags for underperforming SKUs by region.</p>
+      </div>
+    </div>
+
+    <div class="metrics" style="display:flex; gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:48px;">
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent3);">12</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">KPIs Tracked</div>
+      </div>
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent3);">3</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Regions Analyzed</div>
+      </div>
+      <div class="met" style="flex:1; background:var(--bg); padding:28px 24px; text-align:center;">
+        <div class="met-val" style="font-family:'DM Serif Display',serif; font-size:36px; line-height:1; margin-bottom:6px; color:var(--accent3);">+18%</div>
+        <div class="met-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace;">Win Rate Improvement (Proj.)</div>
+      </div>
+    </div>
+
+    <div class="skills-row" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px;">
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Data Interpretation</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Pricing Strategy</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Market Research</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">PM Tool Proficiency</span>
+      <span class="skill" style="font-family:'DM Mono',monospace; font-size:11px; padding:5px 12px; border:1px solid var(--border2); border-radius:2px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Sales Enablement</span>
+    </div>
+
+    <a href="#top" class="project-link" style="display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; text-decoration:none; padding:12px 24px; border-radius:2px; transition:opacity 0.2s; background:var(--accent3); color:#0a0a08;">Back to Top ↑</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer style="padding:60px 40px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+  <div class="foot-left" style="font-family:'DM Serif Display',serif; font-size:20px;">PM Portfolio · Water Technology</div>
+  <div class="foot-links" style="display:flex; gap:28px;">
+    <a href="#project-1" style="color:var(--muted); font-size:13px; text-decoration:none; transition:color 0.2s; font-family:'DM Mono',monospace; text-transform:uppercase; letter-spacing:0.06em;">Project 01</a>
+    <a href="#project-2" style="color:var(--muted); font-size:13px; text-decoration:none; transition:color 0.2s; font-family:'DM Mono',monospace; text-transform:uppercase; letter-spacing:0.06em;">Project 02</a>
+    <a href="#project-3" style="color:var(--muted); font-size:13px; text-decoration:none; transition:color 0.2s; font-family:'DM Mono',monospace; text-transform:uppercase; letter-spacing:0.06em;">Project 03</a>
+  </div>
+  <div class="foot-copy" style="font-size:12px; color:var(--muted); font-family:'DM Mono',monospace; width:100%;">Built to showcase product management skills for Xylem — Water Technology Sector.</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      e.stopPropagation();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, true);
+</script>
+</body>
+</html>
